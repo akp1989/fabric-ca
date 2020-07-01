@@ -1,0 +1,10 @@
+tls.ceadar.ucd.com:
+  image: hyperledger/fabric-ca:1.4.4
+  container_name: tls.ceadar.ucd.com
+  ports:
+    - "7001:7001"
+  environment:
+    - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+  volumes:
+    - "$PWD:/etc/hyperledger/fabric-ca-server"
+  command: sh -c 'fabric-ca-server start -b admin:adminroot'

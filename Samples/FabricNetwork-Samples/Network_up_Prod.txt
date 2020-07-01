@@ -1,0 +1,30 @@
+export PATH=$PATH:${PWD}/bin
+export FABRIC_CFG_PATH=${PWD}/configtx
+
+configtxgen -profile OrgsOrdererGenesis -channelID sysgenchannel -outputBlock ./channelartifacts/genesis.block
+
+configtxgen -profile OrgsChannel -outputCreateChannelTx ./channelartifacts/testchannel.tx -channelID testchannel
+
+configtxgen -profile OrgsChannel -outputAnchorPeersUpdate ./channelartifacts/OrgAanchor.tx -channelID testchannel -asOrg OrgAMSP
+configtxgen -profile OrgsChannel -outputAnchorPeersUpdate ./channelartifacts/OrgBanchor.tx -channelID testchannel -asOrg OrgBMSP
+
+
+peer channel create -o 192.168.0.221:7050 -c testchannel -f ./channelartifacts/testchannel.tx --outputBlock ./channelartifacts/testchannel.block --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem
+
+peer channel fetch 0 ./channelartifacts/testchannel.block -o 192.168.0.221:7050 -c testchannel --tls --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem
+
+peer channel join -b ./channelartifacts/testchannel.block --tls --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem
+
+peer channel update -o 192.168.0.221:7050 -c testchannel -f ./channelartifacts/OrgAanchor.tx --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem
+peer channel update -o 192.168.0.221:7050 -c testchannel -f ./channelartifacts/OrgBanchor.tx --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem
+
+/opt/gopath/src/github.com/chaincode
+peer chaincode install -n mycc -v 0.1 -l node -p /opt/gopath/src/github.com/chaincode/example02
+
+peer chaincode instantiate -o 192.168.0.221:7050 --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -C testchannel -n mycc -l node -v 0.1 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('OrgAMSP.peer','OrgBMSP.peer')"
+
+
+peer chaincode query -C testchannel -n mycc -c '{"Args":["query","a"]}'
+peer chaincode query -C testchannel -n mycc -c '{"Args":["query","b"]}'
+
+peer chaincode invoke -o 192.168.0.221:7050 --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -C testchannel -n mycc --peerAddresses 192.168.0.129:7051 --tlsRootCertFiles /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem --peerAddresses 192.168.0.171:9051 --tlsRootCertFiles /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -c '{"Args":["invoke","a","b","10"]}' 
