@@ -50,16 +50,16 @@ export FABRIC_CA_CLIENT_HOME=$PWD/profiles/tlsadmin
 export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/tlsadmin/msp
 export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem (The ca-cert.pem has to be copied from the TLS CA server path post server startup)
 
-./fabric-ca-client enroll -d -u https://admin:adminroot@192.168.0.221:7001  --enrollment.profile tls --csr.cn 'tlsca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.221' 
+./fabric-ca-client enroll -d -u https://admin:adminroot@192.168.0.221:7001  --enrollment.profile tls --csr.cn 'tlsca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.221' 
 ```
 
 Use the following commands to register the TLS users for each of the organizational peers and orderer peers
 ```
 ./fabric-ca-client register -d --id.name orderer1-tls --id.secret orderer1root --id.type orderer -u https://192.168.0.221:7001 --csr.cn 'orderer1.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.221' 
 
-./fabric-ca-client register -d --id.name peer0-orga-tls --id.secret peerroot --id.type peer -u https://192.168.0.221:7001 --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.129' 
+./fabric-ca-client register -d --id.name peer0-orga-tls --id.secret peerroot --id.type peer -u https://192.168.0.221:7001 --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.129' 
 
-./fabric-ca-client register -d --id.name peer0-orgb-tls --id.secret peerroot --id.type peer -u https://192.168.0.221:7001 --csr.cn 'orgb.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.171' 
+./fabric-ca-client register -d --id.name peer0-orgb-tls --id.secret peerroot --id.type peer -u https://192.168.0.221:7001 --csr.cn 'orgb.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar..ucd.com,192.168.0.171' 
 ```
 
 The following things has to be noted when we are registering TLS Id's for organizational peers
@@ -117,11 +117,11 @@ export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem
 
 Register the peer/orderer user and admin user for each organization
 ```
-./fabric-ca-client register -d --id.name peer0-orga --id.secret peer0OrgaPW --id.type peer -u https://192.168.0.129:7010 --csr.cn 'orgaca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.129' 
+./fabric-ca-client register -d --id.name peer0-orga --id.secret peer0OrgaPW --id.type peer -u https://192.168.0.129:7010 --csr.cn 'orgaca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.129' 
 
-./fabric-ca-client register -d --id.name admin-orga --id.secret orgaAdminPW --id.type admin -u https://192.168.0.129:7010 --csr.cn 'orgaca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.129' 
+./fabric-ca-client register -d --id.name admin-orga --id.secret orgaAdminPW --id.type admin -u https://192.168.0.129:7010 --csr.cn 'orgaca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.129' 
 
-./fabric-ca-client register -d --id.name peer0-user1 --id.secret peer0User1PW --id.type user -u https://192.168.0.129:7010 --csr.cn 'orgaca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.129' 
+./fabric-ca-client register -d --id.name peer0-user1 --id.secret peer0User1PW --id.type user -u https://192.168.0.129:7010 --csr.cn 'orgaca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.129' 
 ```
 
 
@@ -133,7 +133,7 @@ export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/peer-orga-tls/msp
 export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/tlsca-cert.pem*
 (This is the CA certificate copied from the TLSCA server path since we are enrolling against the TLS CA server)
 
-./fabric-ca-client enroll -d -u https://peer0-orga-tls:peerroot@192.168.0.221:7001 --enrollment.profile tls --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.129'
+./fabric-ca-client enroll -d -u https://peer0-orga-tls:peerroot@192.168.0.221:7001 --enrollment.profile tls --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.129'
 ```
 
 Enroll the peer id for Orga
@@ -141,7 +141,7 @@ Enroll the peer id for Orga
 export FABRIC_CA_CLIENT_HOME=$PWD/profiles/peer0-orga
 export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/peer0-orga/msp
 export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem
-./fabric-ca-client enroll -d -u https://peer0-orga:peer0OrgaPW@192.168.0.129:7010 --id.type peer --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.129 '
+./fabric-ca-client enroll -d -u https://peer0-orga:peer0OrgaPW@192.168.0.129:7010 --id.type peer --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.129 '
 ```
 
 Enroll the admin for Orga 
@@ -151,5 +151,5 @@ For organization with multiple peers generate admin at any one peer and copy it 
 export FABRIC_CA_CLIENT_HOME=$PWD/profiles/admin-orga
 export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/admin-orga/msp
 export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem
-./fabric-ca-client enroll -d -u https://admin-orga:orgaAdminPW@192.168.0.129:7010 --id.type admin --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.com,192.168.0.129 '
+./fabric-ca-client enroll -d -u https://admin-orga:orgaAdminPW@192.168.0.129:7010 --id.type admin --csr.cn 'orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.129 '
 ```

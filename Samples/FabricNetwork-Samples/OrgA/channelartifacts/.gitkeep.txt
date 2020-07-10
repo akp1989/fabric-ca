@@ -1,0 +1,4 @@
+placeholder folder for channel artifacts
+
+> genesis block
+> channel tx 

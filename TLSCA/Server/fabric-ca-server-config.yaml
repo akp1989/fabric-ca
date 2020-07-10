@@ -310,9 +310,9 @@ csr:
         O: UCD
         OU: CeADAR
    hosts:
-     - prabhakaran-VB
      - localhost
      - 192.168.0.221
+     - "*.ceadar.ucd.com"
    ca:
       expiry: 131400h
       pathlength: 1
