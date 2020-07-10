@@ -86,7 +86,7 @@ tls:
 #############################################################################
 ca:
   # Name of this CA
-  name: tlsca
+  name: tlsca.ceadar.ucd.com
   # Key file (is only used to import a private key into BCCSP)
   keyfile:
   # Certificate file (default: ca-cert.pem)
@@ -312,8 +312,7 @@ csr:
    hosts:
      - localhost
      - 192.168.0.221
-     - tlsca.ceadar.ucd.com
-     - prabhakaran-VB
+     - "*.ceadar.ucd.com"
    ca:
       expiry: 131400h
       pathlength: 1
