@@ -24,7 +24,7 @@ The following sections has to be checked in the fabric-ca-server-config.yaml fil
   * names.ST - State (Dublin) 
   * names.O - Name of the organization (UCD) 
   * names.OU - Organization unit (CeADAR) 
-  * hosts - Add the IP address of the host where the server is deployed (192.168.0.221)
+  * hosts - Add the IP address of the host where the server is deployed (192.168.0.221) and the hostname and address of the orderer organization (to use for the peer and channel commands in Client or CLI)
 * operations.listenAddress - Change the port (Optional if in case the port clashes with any other existing port)
 
 From the server path run the following command to start a TLS server
@@ -52,6 +52,8 @@ export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem (The ca-cert.pe
 
 ./fabric-ca-client enroll -d -u https://admin:adminroot@192.168.0.221:7001  --enrollment.profile tls --csr.cn 'tlsca.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.ceadar.ucd.com,192.168.0.221' 
 ```
+
+* include the hostname and address of the orderer organization (*.ceadar.ucd.com and 192.168.0.221) so that the root certificate can be used as TLS root cert for peer and channel transaction via client or cli
 
 Use the following commands to register the TLS users for each of the organizational peers and orderer peers
 ```
