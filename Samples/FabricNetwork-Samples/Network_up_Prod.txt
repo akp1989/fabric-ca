@@ -21,10 +21,10 @@ peer channel update -o 192.168.0.221:7050 -c testchannel -f ./channelartifacts/O
 /opt/gopath/src/github.com/chaincode
 peer chaincode install -n mycc -v 0.1 -l node -p /opt/gopath/src/github.com/chaincode/example02
 
-peer chaincode instantiate -o 192.168.0.221:7050 --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -C testchannel -n mycc -l node -v 0.1 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('OrgAMSP.peer','OrgBMSP.peer')"
+peer chaincode instantiate -o 192.168.0.221:7050 --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -C testchannel -n mycc -l node -v 0.1 -c '{"Function":"init","Args":["a","100","b","200"]}' -P "AND ('OrgAMSP.peer','OrgBMSP.peer')"
 
 
-peer chaincode query -C testchannel -n mycc -c '{"Args":["query","a"]}'
-peer chaincode query -C testchannel -n mycc -c '{"Args":["query","b"]}'
+peer chaincode query -C testchannel -n mycc -c '{"Function":"query","Args":["a"]}'
+peer chaincode query -C testchannel -n mycc -c '{"Function":"query","Args":["b"]}'
 
-peer chaincode invoke -o 192.168.0.221:7050 --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -C testchannel -n mycc --peerAddresses 192.168.0.129:7051 --tlsRootCertFiles /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem --peerAddresses 192.168.0.171:9051 --tlsRootCertFiles /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -c '{"Args":["invoke","a","b","10"]}' 
+peer chaincode invoke -o 192.168.0.221:7050 --tls true --cafile /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -C testchannel -n mycc --peerAddresses 192.168.0.129:7051 --tlsRootCertFiles /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem --peerAddresses 192.168.0.171:9051 --tlsRootCertFiles /etc/hyperledger/fabric/msp/tlscacerts/ca-cert.pem -c '{"Function":"invoke","Args":["a","b","10"]}' 

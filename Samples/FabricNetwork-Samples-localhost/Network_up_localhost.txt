@@ -36,10 +36,10 @@ peer channel update -o orderer1.akp.com:7050 -c testchannel -f ./channelartifact
 /opt/gopath/src/github.com/chaincode
 peer chaincode install -n mycc -v 0.1 -l node -p /opt/gopath/src/github.com/chaincode/example02
 
-peer chaincode instantiate -o orderer1.akp.com:7050 --tls true --cafile /etc/hyperledger/fabric/orga/msp/tlscacerts/tlsca-cert.pem -C testchannel -n mycc -l node -v 0.1 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('OrgAMSP.peer','OrgBMSP.peer')"
+peer chaincode instantiate -o orderer1.akp.com:7050 --tls true --cafile /etc/hyperledger/fabric/orga/msp/tlscacerts/tlsca-cert.pem -C testchannel -n mycc -l node -v 0.1 -c '{"Function":"init","Args":["a","100","b","200"]}' -P "AND ('OrgAMSP.peer','OrgBMSP.peer')"
 
 
-peer chaincode query -C testchannel -n mycc -c '{"Args":["query","a"]}'
-peer chaincode query -C testchannel -n mycc -c '{"Args":["query","b"]}'
+peer chaincode query -C testchannel -n mycc -c '{"Function":"query","Args":["a"]}'
+peer chaincode query -C testchannel -n mycc -c '{"Function":"query","Args":["b"]}'
 
-peer chaincode invoke -o orderer1.akp.com:7050 --tls true --cafile /etc/hyperledger/fabric/orga/msp/tlscacerts/tlsca-cert.pem -C testchannel -n mycc --peerAddresses peer0.orga.akp.com:7051 --tlsRootCertFiles /etc/hyperledger/fabric/orga/msp/tlscacerts/tlsca-cert.pem --peerAddresses peer0.orgb.akp.com:9051 --tlsRootCertFiles /etc/hyperledger/fabric/orgb/msp/tlscacerts/tlsca-cert.pem -c '{"Args":["invoke","a","b","10"]}' 
+peer chaincode invoke -o orderer1.akp.com:7050 --tls true --cafile /etc/hyperledger/fabric/orga/msp/tlscacerts/tlsca-cert.pem -C testchannel -n mycc --peerAddresses peer0.orga.akp.com:7051 --tlsRootCertFiles /etc/hyperledger/fabric/orga/msp/tlscacerts/tlsca-cert.pem --peerAddresses peer0.orgb.akp.com:9051 --tlsRootCertFiles /etc/hyperledger/fabric/orgb/msp/tlscacerts/tlsca-cert.pem -c '{"Function":"invoke","Args":["a","b","10"]}' 
