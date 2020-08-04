@@ -6,7 +6,7 @@ networks:
   ceadar:
 services:
   couchdb0.orga.ceadar.com:
-    container_name: couchdb0.orga.ceadar.com
+    container_name: couchdb0.org1.ceadar.com
     image: hyperledger/fabric-couchdb
     # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
     # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
@@ -57,34 +57,33 @@ services:
     ports:
       - 7051:7051
 
-#  cli-orgb:
-#    container_name: cli-orgb
-#    image: hyperledger/fabric-tools:latest
-#    tty: true
-#    stdin_open: true
-#    environment:
-#      - GOPATH=/opt/gopath
-#      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-#      - FABRIC_LOGGING_SPEC=INFO
-#      #- FABRIC_LOGGING_SPEC=INFO
-#      - CORE_PEER_ID=cli
-#      - CORE_PEER_ADDRESS=192.168.0.171:9051
-#      - CORE_PEER_LOCALMSPID=OrgBMSP
-#      - CORE_PEER_TLS_ENABLED=true
-#      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_ceadar
-#      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/signcerts/cert.pem
-#      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/keystore/key.pem
-#      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/tlscacerts/tlsca-cert.pem
-#      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/adminmsp
-#    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
-#    command: /bin/bash
-#    volumes:
-#        - /var/run/:/host/var/run/
-#        - ./../chaincode/:/opt/gopath/src/github.com/chaincode
-#        - ./../crypto/orgb/adminuser/msp:/etc/hyperledger/fabric/adminmsp
-#        - ./../crypto/orgb/msp:/etc/hyperledger/fabric/msp
-#        - ./../crypto/orgb/tls-msp:/etc/hyperledger/fabric/tls
-#        - ./../crypto/orderer:/etc/hyperledger/fabric/orderer
-#        - ./../channelartifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channelartifacts
-#    networks:
-#      - ceadar
+  cli-orga:
+    container_name: cli-orga
+    image: hyperledger/fabric-tools:latest
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=cli-orga
+      - CORE_PEER_ADDRESS=192.168.0.129:7051
+      - CORE_PEER_LOCALMSPID=OrgAMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_ceadar
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/signcerts/cert.pem
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/keystore/key.pem
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/tlscacerts/tlsca-cert.pem
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/adminmsp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./../chaincode/:/opt/gopath/src/github.com/chaincode
+        - ./../crypto/orga/adminuser/msp:/etc/hyperledger/fabric/adminmsp
+        - ./../crypto/orga/msp:/etc/hyperledger/fabric/msp
+        - ./../crypto/orga/tls-msp:/etc/hyperledger/fabric/tls
+        - ./../channelartifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channelartifacts
+    networks:
+      - ceadar
