@@ -51,6 +51,7 @@ services:
         - /var/run:/host/var/run
         - ./../crypto/orgb/msp-peer0:/etc/hyperledger/fabric/msp
         - ./../crypto/orgb/tls-msp-peer0:/etc/hyperledger/fabric/tls
+        - peer0.orgb.ceadar.com:/etc/hyperledger/fabric
     networks:
       - fabric144
     ports:

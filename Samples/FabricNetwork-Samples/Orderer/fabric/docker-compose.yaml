@@ -32,7 +32,7 @@ services:
         - ./../channelartifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
         - ./../crypto/orderer/msp:/var/hyperledger/orderer/msp
         - ./../crypto/orderer/tls-msp/:/var/hyperledger/orderer/tls
-        - orderer.ceadar.com:/var/hyperledger/production/orderer
+        - orderer.ceadar.com:/var/hyperledger/orderer
     networks:
       - ceadar
     ports:
