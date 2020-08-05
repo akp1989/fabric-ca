@@ -7,4 +7,5 @@ orgaca.ceadar.ucd.com:
     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
   volumes:
     - "$PWD:/etc/hyperledger/fabric-ca-server"
+    - orgaca.ceadar.ucd.com_volume:/etc/hyperledger
   command: sh -c 'fabric-ca-server start -b admin:adminroot'

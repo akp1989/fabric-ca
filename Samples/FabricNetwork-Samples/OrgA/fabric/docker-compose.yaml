@@ -1,7 +1,10 @@
 version: '2'
 
 volumes:
-  peer0.orga.ceadar.com:
+  peer0.orga.ceadar.com_msp:
+  peer0.orga.ceadar.com_data:
+  couchdb0.orga.ceadar.com_data:
+  couchdb0.orga.ceadar.com_etc:
 networks:
   ceadar:
 services:
@@ -13,6 +16,9 @@ services:
     environment:
       - COUCHDB_USER=
       - COUCHDB_PASSWORD=
+    volumes:
+         - couchdb0.orga.ceadar.com_data:/opt/couchdb/data
+         - couchdb0.orga.ceadar.com_etc:/opt/couchdb/etc/local.d
     # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
     # for example map it to utilize Fauxton User Interface in dev environments.
     ports:
@@ -51,7 +57,8 @@ services:
         - /var/run:/host/var/run
         - ./../crypto/orga/msp:/etc/hyperledger/fabric/msp
         - ./../crypto/orga/tls-msp:/etc/hyperledger/fabric/tls
-        - peer0.orga.ceadar.com:/etc/hyperledger/fabric
+        - peer0.ceadar.akp.com_msp:/etc/hyperledger/fabric
+        - peer0.ceadar.akp.com_data:/var/hyperledger/production
     networks:
       - ceadar
     ports:

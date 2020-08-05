@@ -1,4 +1,4 @@
-ca.orgb.ceadar.ucd.com:
+ca.orgb.akp.com:
   image: hyperledger/fabric-ca:1.4.4
   container_name: ca.orgb.ceadar.ucd.com
   ports:
@@ -7,4 +7,5 @@ ca.orgb.ceadar.ucd.com:
     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
   volumes:
     - "$PWD:/etc/hyperledger/fabric-ca-server"
+    - ca.orgb.akp.com:/etc/hyperledger
   command: sh -c 'fabric-ca-server start -b admin:adminroot'

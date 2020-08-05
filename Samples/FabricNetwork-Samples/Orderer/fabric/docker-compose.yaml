@@ -1,7 +1,8 @@
 version: '2'
 
 volumes:
-  orderer.ceadar.com:
+  orderer.ceadar.com_msp:
+  orderer.ceadar.com_data:
 networks:
   ceadar:
 services:
@@ -32,7 +33,8 @@ services:
         - ./../channelartifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
         - ./../crypto/orderer/msp:/var/hyperledger/orderer/msp
         - ./../crypto/orderer/tls-msp/:/var/hyperledger/orderer/tls
-        - orderer.ceadar.com:/var/hyperledger/orderer
+        - orderer.ceadar.com_msp:/var/hyperledger/orderer
+        - orderer.ceadar.com_data:/var/hyperledger/production
     networks:
       - ceadar
     ports:
