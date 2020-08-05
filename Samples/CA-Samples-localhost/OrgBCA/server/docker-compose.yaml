@@ -7,5 +7,5 @@ ca.orgb.akp.com:
     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
   volumes:
     - "$PWD:/etc/hyperledger/fabric-ca-server"
-    - ca.orgb.akp.com_data:/etc/hyperledger/fabric-ca-server
+    - ca.orgb.akp.com:/etc/hyperledger
   command: sh -c 'fabric-ca-server start -b admin:adminroot'

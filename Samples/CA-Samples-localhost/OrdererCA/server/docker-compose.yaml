@@ -7,5 +7,5 @@ ordererca.akp.com:
     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
   volumes:
     - "$PWD:/etc/hyperledger/fabric-ca-server"
-    - ordererca.akp.com_data:/etc/hyperledger/fabric-ca-server
+    - ordererca.akp.com_volume:/etc/hyperledger
   command: sh -c 'fabric-ca-server start -b admin:adminroot'
