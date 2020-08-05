@@ -1,10 +1,11 @@
-ca.orgaca.ceadar.ucd.com:
+ca.orga.akp.com:
   image: hyperledger/fabric-ca:1.4.4
-  container_name: ca.orgaa.ceadar.ucd.com
+  container_name: ca.orga.akp.com
   ports:
     - "7010:7010"
   environment:
     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
   volumes:
     - "$PWD:/etc/hyperledger/fabric-ca-server"
+    - ca.orga.akp.com_data:/etc/hyperledger/fabric-ca-server
   command: sh -c 'fabric-ca-server start -b admin:adminroot'
