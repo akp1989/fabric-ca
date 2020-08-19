@@ -34,7 +34,7 @@ Organizations:
         ID: OrdererMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: /home/prabhakaran/workspace/Fabric/crypto/orderer1/msp
+        MSPDir: /home/prabhakaran/workspace/Fabric/crypto/orderer/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -257,6 +257,27 @@ Orderer: &OrdererDefaults
         Brokers:
             - 127.0.0.1:9092
 
+    # EtcdRaft defines configuration which must be set when the "etcdraft"
+    # orderertype is chosen.
+    EtcdRaft:
+        # The set of Raft replicas for this network. For the etcd/raft-based
+        # implementation, we expect every replica to also be an OSN. Therefore,
+        # a subset of the host:port items enumerated in this list should be
+        # replicated under the Orderer.Addresses key above.
+        Consenters:
+            - Host: orderer1.example.com
+              Port: 7050
+              ClientTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer1/tls-msp/signcerts/cert.pem
+              ServerTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer1/tls-msp/signcerts/cert.pem
+            - Host: orderer2.example.com
+              Port: 9050
+              ClientTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer2/tls-msp/signcerts/cert.pem
+              ServerTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer2/tls-msp/signcerts/cert.pem
+            - Host: orderer3.example.com
+              Port: 11050
+              ClientTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer3/tls-msp/signcerts/cert.pem
+              ServerTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer3/tls-msp/signcerts/cert.pem
+
     # Organizations is the list of orgs which are defined as participants on
     # the orderer side of the network
     Organizations:
@@ -347,7 +368,7 @@ Profiles:
             Capabilities:
                 <<: *ApplicationCapabilities
 
-    SampleMultiNodeEtcdRaft:
+    MultiNodeEtcdRaft:
         <<: *ChannelDefaults
         Capabilities:
             <<: *ChannelCapabilities
@@ -356,12 +377,22 @@ Profiles:
             OrdererType: etcdraft
             EtcdRaft:
                 Consenters:
-                - Host: 192.168.0.221
+                - Host: orderer1.akp.com
                   Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+                  ClientTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer1/tls-msp/signcerts/cert.pem
+                  ServerTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer1/tls-msp/signcerts/cert.pem
+                - Host: orderer2.akp.com
+                  Port: 9050
+                  ClientTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer2/tls-msp/signcerts/cert.pem
+                  ServerTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer2/tls-msp/signcerts/cert.pem
+                - Host: orderer3.akp.com
+                  Port: 11050
+                  ClientTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer3/tls-msp/signcerts/cert.pem
+                  ServerTLSCert: /home/prabhakaran/workspace/Fabric/crypto/orderer3/tls-msp/signcerts/cert.pem
             Addresses:
-                - 192.168.0.221:7050
+                - orderer1.akp.com:7050
+                - orderer2.akp.com:9050
+                - orderer3.akp.com:11050
 
             Organizations:
             - *OrdererOrg

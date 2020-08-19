@@ -3,6 +3,11 @@ version: '2'
 volumes:
   orderer1.akp.com_msp:
   orderer1.akp.com_data:
+#  orderer2.akp.com_msp:
+#  orderer2.akp.com_data:
+#  orderer3.akp.com_msp:
+#  orderer3.akp.com_data:
+
 networks:
   fabric144:
 services:
@@ -14,6 +19,7 @@ services:
       - ORDERER_HOME=/tmp/hyperledger/orderer
       - ORDERER_HOST=orderer1.akp.com
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
       - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
@@ -39,3 +45,73 @@ services:
       - fabric144
     ports:
         - 7050:7050
+
+#  orderer2.akp.com:
+#    container_name: orderer2.akp.com
+#    image: hyperledger/fabric-orderer
+#    environment:
+#      - FABRIC_LOGGING_SPEC=DEBUG
+#      - ORDERER_HOME=/tmp/hyperledger/orderer
+#      - ORDERER_HOST=orderer2.akp.com
+#      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+#      - ORDERER_GENERAL_LISTENPORT=9050
+#      - ORDERER_GENERAL_GENESISMETHOD=file
+#      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+#      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+#      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+#      - ORDERER_GENERAL_TLS_ENABLED=true
+#      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/signcerts/cert.pem
+#      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/keystore/key.pem
+#      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/tlscacerts/tlsca-cert.pem]
+#      - ORDERER_GENERAL_LOGLEVEL=DEBUG
+#      - ORDERER_DEBUG_BROADCASTTRACEDIR=data/logs
+#      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+#      - ORDERER_KAFKA_VERBOSE=true
+#      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/signcerts/cert.pem
+#      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/keystore/key.pem
+#      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/tlscacerts/tlsca-cert.pem]
+#    volumes:
+#        - ./../channelartifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+#        - ./../crypto/orderer2/msp:/var/hyperledger/orderer/msp
+#        - ./../crypto/orderer2/tls-msp/:/var/hyperledger/orderer/tls
+#        - orderer2.akp.com_msp:/var/hyperledger/orderer
+#        - orderer2.akp.com_data:/var/hyperledger/production
+#    networks:
+#      - fabric144
+#    ports:
+#        - 9050:9050
+#
+#  orderer3.akp.com:
+#    container_name: orderer3.akp.com
+#    image: hyperledger/fabric-orderer
+#    environment:
+#      - FABRIC_LOGGING_SPEC=DEBUG
+#      - ORDERER_HOME=/tmp/hyperledger/orderer
+#      - ORDERER_HOST=orderer3.akp.com
+#      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+#      - ORDERER_GENERAL_LISTENPORT=11050
+#      - ORDERER_GENERAL_GENESISMETHOD=file
+#      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+#      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+#      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+#      - ORDERER_GENERAL_TLS_ENABLED=true
+#      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/signcerts/cert.pem
+#      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/keystore/key.pem
+#      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/tlscacerts/tlsca-cert.pem]
+#      - ORDERER_GENERAL_LOGLEVEL=DEBUG
+#      - ORDERER_DEBUG_BROADCASTTRACEDIR=data/logs
+#      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+#      - ORDERER_KAFKA_VERBOSE=true
+#      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/signcerts/cert.pem
+#      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/keystore/key.pem
+#      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/tlscacerts/tlsca-cert.pem]
+#    volumes:
+#        - ./../channelartifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+#        - ./../crypto/orderer3/msp:/var/hyperledger/orderer/msp
+#        - ./../crypto/orderer3/tls-msp/:/var/hyperledger/orderer/tls
+#        - orderer3.akp.com_msp:/var/hyperledger/orderer
+#        - orderer3.akp.com_data:/var/hyperledger/production
+#    networks:
+#      - fabric144
+#    ports:
+#        - 11050:11050
