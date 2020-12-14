@@ -1,0 +1,11 @@
+org.ca.com:
+  image: hyperledger/fabric-ca:1.4.9
+  container_name: org.ca.com
+  ports:
+    - "7710:7710"
+  environment:
+    - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+  volumes:
+      - $PWD:/etc/hyperledger/fabric-ca-server
+      - org.ca_data:/etc/hyperledger
+  command: sh -c 'fabric-ca-server start -b admin:adminroot'
