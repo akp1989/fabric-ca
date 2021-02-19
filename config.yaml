@@ -12,3 +12,19 @@ NodeOUs:
   OrdererOUIdentifier:
     Certificate: cacerts/ca.org1.example.com-cert.pem
     OrganizationalUnitIdentifier: orderer
+
+# In case of OrgCA being deployed as intermediate CA then use this
+#NodeOUs:
+#  Enable: true
+#  ClientOUIdentifier:
+#    Certificate: intermediatecerts/ca-cert.pem
+#    OrganizationalUnitIdentifier: client
+#  PeerOUIdentifier:
+#    Certificate: intermediatecerts/ca-cert.pem
+#    OrganizationalUnitIdentifier: peer
+#  AdminOUIdentifier:
+#    Certificate: intermediatecerts/ca-cert.pem
+#    OrganizationalUnitIdentifier: admin
+#  OrdererOUIdentifier:
+#    Certificate: intermediatecerts/ca-cert.pem
+#    OrganizationalUnitIdentifier: orderer

@@ -1,0 +1,11 @@
+orgroot.ceadar.ucd.com:
+  image: hyperledger/fabric-ca:1.4.4
+  container_name: orgroot.ceadar.ucd.com
+  ports:
+    - "7009:7009"
+  environment:
+    - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+  volumes:
+    - "$PWD:/etc/hyperledger/fabric-ca-server"
+    - orgroot.ca_data:/etc/hyperledger
+  command: sh -c 'fabric-ca-server start -b rcadmin:rcadminpw'

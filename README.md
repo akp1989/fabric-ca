@@ -71,6 +71,13 @@ The following things has to be noted when we are registering TLS Id's for organi
 Now the steps for bootstrapping the TLS CA server and registering the TLS id's for all the nodes are completed
 
 
+## Using RootServer (so that orgca will be an intermediate server)
+If we are using a root CA server then the organizational CA-Server can be an intermediate server
+
+Refer the path ./RootCA/Server for the configuration file to start any Root CA server
+
+
+
 ## Organizational CA server setup 
 
 For each organization a unique CA server will be setup. The same set of steps will be followed for each and every organizational peers (both orderer and peers)
@@ -143,7 +150,7 @@ Enroll the peer id for Orga
 export FABRIC_CA_CLIENT_HOME=$PWD/profiles/peer0-orga
 export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/peer0-orga/msp
 export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem
-./fabric-ca-client enroll -d -u https:/peer0.orga.ceadar.ucd.com:peer0OrgaPW@192.168.0.129:7010 --id.type peer --csr.cn 'peer0.orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.orga.ceadar.ucd.com,192.168.0.129 '
+./fabric-ca-client enroll -d -u https:/peer0.orga.ceadar.ucd.com:peer0OrgaPW@192.168.0.129:7010 --id.type peer --csr.cn 'peer0.orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.orga.ceadar.ucd.com,192.168.0.129'
 ```
 
 Enroll the admin for Orga 
@@ -153,7 +160,7 @@ For organization with multiple peers generate admin at any one peer and copy it 
 export FABRIC_CA_CLIENT_HOME=$PWD/profiles/admin-orga
 export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/admin-orga/msp
 export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem
-./fabric-ca-client enroll -d -u https://admin.orga.ceadar.ucd.com:orgaAdminPW@192.168.0.129:7010 --id.type admin --csr.cn 'admin.orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.orga.ceadar.ucd.com,192.168.0.129 '
+./fabric-ca-client enroll -d -u https://admin.orga.ceadar.ucd.com:orgaAdminPW@192.168.0.129:7010 --id.type admin --csr.cn 'admin.orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.orga.ceadar.ucd.com,192.168.0.129'
 ```
 Enroll the user1 for Orga 
 
@@ -162,5 +169,16 @@ For organization with multiple peers generate admin at any one peer and copy it 
 export FABRIC_CA_CLIENT_HOME=$PWD/profiles/user1-orga
 export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/user1-orga/msp
 export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem
-./fabric-ca-client enroll -d -u https://user1.orga.ceadar.ucd.com:peer0User1PW@192.168.0.129:7010 --id.type admin --csr.cn 'user1.orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.orga.ceadar.ucd.com,192.168.0.129 '
+./fabric-ca-client enroll -d -u https://user1.orga.ceadar.ucd.com:peer0User1PW@192.168.0.129:7010 --id.type admin --csr.cn 'user1.orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.orga.ceadar.ucd.com,192.168.0.129'
+```
+
+To re-enroll a given user, export all environment variables as used in the enroll command for that id and add an extra parameter --csr.keyrequest.reusekey. This will re-enroll the id with the same private key
+
+For eg: to re-enroll the peer id of peer0-orga
+
+```
+export FABRIC_CA_CLIENT_HOME=$PWD/profiles/peer0-orga
+export FABRIC_CA_CLIENT_MSPDIR=$PWD/profiles/peer0-orga/msp
+export FABRIC_CA_CLIENT_TLS_CERTFILES=$PWD/tls-certs/ca-cert.pem
+./fabric-ca-client enroll -d -u https:/peer0.orga.ceadar.ucd.com:peer0OrgaPW@192.168.0.129:7010 --id.type peer --csr.cn 'peer0.orga.ceadar.ucd.com' --csr.names 'C=IE,ST=Dublin,O=UCD,OU=CeADAR' --csr.hosts 'localhost,*.orga.ceadar.ucd.com,192.168.0.129' --csr.keyrequest.reusekey
 ```

@@ -40,7 +40,7 @@
 version: 1.4.4
 
 # Server's listening port (default: 7054)
-port: 7010
+port: 7009
 
 # Cross-Origin Resource Sharing (CORS)
 cors:
@@ -86,7 +86,7 @@ tls:
 #############################################################################
 ca:
   # Name of this CA
-  name: orga.ceadar.ucd.com
+  name: orgroot.ceadar.ucd.com
   # Key file (is only used to import a private key into BCCSP)
   keyfile:
   # Certificate file (default: ca-cert.pem)
@@ -129,8 +129,8 @@ registry:
 
   # Contains identity information which is used when LDAP is disabled
   identities:
-     - name: admin
-       pass: adminroot
+     - name: rcadmin
+       pass: rcadminpw
        type: client
        affiliation: ""
        attrs:
@@ -307,7 +307,7 @@ signing:
 #     CA certificates though it can still issue end entity certificates.
 ###########################################################################
 csr:
-   cn: orga.ceadar.ucd.com
+   cn: orgroot.ceadar.ucd.com
    keyrequest:
      algo: ecdsa
      size: 256
@@ -321,7 +321,7 @@ csr:
      - 127.0.0.1
      - 0.0.0.0
      - localhost
-     - "*.orga.ceadar.ucd.com"
+     - "*.ceadar.ucd.com"
    ca:
       expiry: 131400h
       pathlength: 1
@@ -423,22 +423,6 @@ cafiles:
 #     is enabled on server
 #     keyfile - PEM-encoded key file for when client authentication
 #     is enabled on server
-#<This id has to be registered with RootCA and Root CA should be running before we start this OrgCA as intermediate
-#intermediate:
-#  parentserver:
-#    url: https://icadmin.root:icadminrootpw@<localip>:17710
-#    caname: orgroot.ceadar.ucd.com
-#
-#  enrollment:
-#    hosts:
-#    profile: ca
-#    label:
-#
-#  tls:
-#    certfiles: tls/tls-ca-cert.pem
-#    client:
-#      certfile:
-#      keyfile:
 #############################################################################
 intermediate:
   parentserver:
@@ -475,7 +459,7 @@ cfg:
 ###############################################################################
 operations:
     # host and port for the operations server
-    listenAddress: 127.0.0.1:9443
+    listenAddress: 127.0.0.1:9442
 
     # TLS configuration for the operations endpoint
     tls:

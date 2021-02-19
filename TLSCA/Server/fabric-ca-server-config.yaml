@@ -311,7 +311,8 @@ csr:
         OU: CeADAR
    hosts:
      - localhost
-     - 192.168.0.221
+     - 127.0.0.1
+     - 0.0.0.0
      - "*.ceadar.ucd.com"
    ca:
       expiry: 131400h
@@ -450,7 +451,7 @@ cfg:
 ###############################################################################
 operations:
     # host and port for the operations server
-    listenAddress: 127.0.0.1:9443
+    listenAddress: 127.0.0.1:9441
 
     # TLS configuration for the operations endpoint
     tls:
