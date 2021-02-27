@@ -426,7 +426,7 @@ cafiles:
 #<This id has to be registered with RootCA and Root CA should be running before we start this OrgCA as intermediate
 #intermediate:
 #  parentserver:
-#    url: https://icadmin.root:icadminrootpw@<localip>:17710
+#    url: https://icadmin.root:icadminrootpw@<localip>:7009
 #    caname: orgroot.ceadar.ucd.com
 #
 #  enrollment:
